@@ -2,14 +2,18 @@ package entities;
 
 public class Funcionario {
 
-	private int id;
+	private Integer id;
 	private String nome;
-	private double salario;
+	private Double salario;
 	
-	public Funcionario(int id, String nome, double salario) {
+	public Funcionario(Integer id, String nome, Double salario) {
 		this.id = id;
 		this.nome = nome;
 		this.salario = salario;
+	}
+	
+	public Funcionario() {
+		
 	}
 
 	public String toString() {
@@ -28,12 +32,12 @@ public class Funcionario {
 		return id;
 	}
 
-	public double getSalario() {
+	public Double getSalario() {
 		return salario;
 	}
 	
-	public void aumentaSalario(double aumento) {
-		this.salario += salario * (aumento * 0.01);
+	public void aumentaSalario(Double aumento) {
+		salario += salario * (aumento * 0.01);
 	}
 
 }

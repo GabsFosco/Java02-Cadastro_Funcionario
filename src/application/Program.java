@@ -3,7 +3,6 @@ package application;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 import entities.Funcionario;
 
@@ -12,10 +11,6 @@ public class Program {
 	public static void main(String[] args) {
 		
 		Scanner sc = new Scanner(System.in);
-		int id;
-		String nome;
-		double salario;
-		Funcionario funcionario;
 		
 		System.out.print("Quantos funcionários serão cadastrados? ");
 		int funcionariosParaInserir = sc.nextInt();
@@ -23,27 +18,28 @@ public class Program {
 		List<Funcionario> funcionariosCadastrados = new ArrayList<>();
 		
 		for (int x = 0; x != funcionariosParaInserir; x++) {
-			System.out.println("Funcionário #" + (x+1) + " :");
+			System.out.println("Funcionário #" + (x+1) + ":");
 			System.out.print("ID: ");
-			id = sc.nextInt();
-			sc.nextLine();
+			Integer id = sc.nextInt();
 			System.out.print("Nome: ");
-			nome = sc.nextLine();
+			sc.nextLine();
+			String nome = sc.nextLine();
 			System.out.print("Salário: ");
-			salario = sc.nextDouble();
+			Double salario = sc.nextDouble();
 			System.out.println("");
-			funcionariosCadastrados.add(new Funcionario(id, nome, salario));
+			Funcionario funcionario = new Funcionario(id, nome, salario);
+			funcionariosCadastrados.add(funcionario);
 		}
 		
 		System.out.print("Digite o ID do funcionário que receberá aumento: ");
-		id = sc.nextInt();
+		Integer id = sc.nextInt();
 		
-		List<Funcionario> funcionarioSelecionado = funcionario.stream().filter(x -> x.getId() == id).collect(Collectors.toList());
+		Integer posicao = posicao(funcionariosCadastrados, id);
 		
-		if (funcionarioSelecionado != null) {
+		if (posicao != null) {
 			System.out.print("Informe a porcentagem de aumento: ");
-			double aumento = sc.nextDouble();
-			funcionario.aumentaSalario(aumento);
+			Double aumento = sc.nextDouble();
+			funcionariosCadastrados.get(posicao).aumentaSalario(aumento);
 			System.out.println("");
 		}
 		else {
@@ -59,4 +55,14 @@ public class Program {
 		sc.close();
 	}
 
+	
+	public static Integer posicao(List<Funcionario> funcionariosCadastrados, Integer id) {
+		for (int i = 0; i < funcionariosCadastrados.size(); i++) {
+			if (funcionariosCadastrados.get(i).getId() == id) {
+				return i;
+			}
+		}
+		return null;
+	}
+	
 }
