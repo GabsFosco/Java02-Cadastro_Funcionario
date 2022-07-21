@@ -26,7 +26,7 @@ public class Program {
 			String nome = sc.nextLine();
 			System.out.print("Salário: ");
 			Double salario = sc.nextDouble();
-			System.out.println("");
+			System.out.println();
 			Funcionario funcionario = new Funcionario(id, nome, salario);
 			funcionariosCadastrados.add(funcionario);
 		}
@@ -34,17 +34,17 @@ public class Program {
 		System.out.print("Digite o ID do funcionário que receberá aumento: ");
 		Integer id = sc.nextInt();
 		
-		Integer posicao = posicao(funcionariosCadastrados, id);
+		Funcionario funcionario = funcionariosCadastrados.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
 		
-		if (posicao != null) {
+		if (funcionario != null) {
 			System.out.print("Informe a porcentagem de aumento: ");
 			Double aumento = sc.nextDouble();
-			funcionariosCadastrados.get(posicao).aumentaSalario(aumento);
-			System.out.println("");
+			funcionario.aumentaSalario(aumento);
+			System.out.println();
 		}
 		else {
 			System.out.println("O ID informado é inválido!");
-			System.out.println("");
+			System.out.println();
 		}
 		
 		System.out.println("Listagem de funcionários:");
@@ -53,16 +53,6 @@ public class Program {
 		}
 
 		sc.close();
-	}
-
-	
-	public static Integer posicao(List<Funcionario> funcionariosCadastrados, Integer id) {
-		for (int i = 0; i < funcionariosCadastrados.size(); i++) {
-			if (funcionariosCadastrados.get(i).getId() == id) {
-				return i;
-			}
-		}
-		return null;
 	}
 	
 }
